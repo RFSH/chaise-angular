@@ -1,0 +1,55 @@
+<div *ngIf="!tableModel.tableReady">Loading table...</div>
+<div class="outer-table recordset-table s_isa t_dataset">
+  <table class="table chaise-table table-striped table-hover">
+    <thead class="table-heading">
+      <tr>
+        <th class="actions-header view-header">
+          <span class="chaise-icon-for-tooltip">View </span>
+        </th>
+        <th *ngFor="let col of tableModel.columns" class="clickable" nowrap="">
+          <span class="table-column-displayname chaise-icon-for-tooltip">
+            <span *ngIf="!col.displayname.isHTML">{{ col.displayname.value }}</span>
+            <span *ngIf="col.displayname.isHTML" [innerHTML]="col.displayname.value"></span>
+          </span>
+          <span class="table-heading-icons">
+            <span *ngIf="col.sortable" class="column-sort-icon">
+              <span>
+                <span class="not-sorted-icon fas fa-arrows-alt-v"></span>
+              </span>
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- rows -->
+      <tr *ngFor="let row of tableModel.values" class="chaise-table-row" style="position: relative;">
+        <td class="block action-btns">
+          <div class="chaise-btn-group">
+            <a if="viewLink" type="button" class="view-action-button chaise-btn chaise-btn-tertiary chaise-btn-link icon-btn"
+                href="https://dev.isrd.isi.edu/~ashafaei/chaise2/record">
+              <span class="chaise-btn-icon chaise-icon chaise-view-details"></span>
+            </a>
+          </div>
+        </td>
+        <!-- cells -->
+        <td *ngFor="let cell of row">
+          <div [ngSwitch]="cell.isHTML">
+            <div class="showContent">
+              <span *ngSwitchCase="true" class="markdown-container" [innerHTML]="cell.value"></span>
+              <span *ngSwitchDefault>{{cell.value}}</span>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+      <tr *ngIf="tableModel.tableReady && tableModel.values.length === 0">
+          <td [attr.colspan]="tableModel.columns.length" style="text-align: center">
+              <span>No results found</span>
+          </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,43 @@
+<div class="container container-fluid">
+  <div *ngIf="hasError">has error</div>
+  <div *ngIf="!pageReady">Loading...</div>
+  <div *ngIf="pageReady">
+    <h1>
+      <a href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordset">
+          <span *ngIf="!reference.displayname.isHTML">{{ reference.displayname.value }}</span>
+          <span *ngIf="reference.displayname.isHTML" [innerHTML]="reference.displayname.value"></span>
+      </a>
+      <span>:</span>
+      <span *ngIf="!tuple.displayname.isHTML">{{ tuple.displayname.value }}</span>
+      <span *ngIf="tuple.displayname.isHTML" [innerHTML]="tuple.displayname.value"></span>
+    </h1>
+
+    <div class="main-body">
+      <div>
+        <table class="table table-fixed-layout" id="tblRecord">
+          <tr *ngFor="let col of columnModels; index as colIndex" class="row record-row">
+            <td class="entity-key col-xs-4 col-sm-4 col-md-3 col-lg-2">
+              <span class="column-displayname">
+                <span *ngIf="col.column.displayname.isHTML" [innerHTML]="col.column.displayname.value"></span>
+                <span *ngIf="!col.column.displayname.isHTML">{{ col.column.displayname.value }}</span>
+              </span>
+            </td>
+            <td class="entity-value col-xs-8 col-sm-8 col-md-9 col-lg-10">
+              <span>
+                <span *ngIf="tuple.isHTML[colIndex]" class="markdown-container" [innerHTML]="tuple.values[colIndex]"></span>
+                <span *ngIf="!tuple.isHTML[colIndex]">{{tuple.values[colIndex]}}</span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div *ngFor="let relatedModel of relatedTableModels">
+        <h3>
+          <span *ngIf="!relatedModel.displayname.isHTML">{{ relatedModel.displayname.value }}</span>
+          <span *ngIf="relatedModel.displayname.isHTML" [innerHTML]="relatedModel.displayname.value"></span>
+        </h3>
+        <lib-table [tableModel]="relatedModel"></lib-table>
+      </div>
+    </div>
+  </div>
+</div>

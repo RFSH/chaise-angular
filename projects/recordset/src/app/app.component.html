@@ -1,0 +1,21 @@
+<div class="container container-fluid">
+  <div *ngIf="tableModel.hasError || hasError">has error</div>
+  <div *ngIf="!pageReady">Loading...</div>
+  <div *ngIf="pageReady">
+    <h1>
+      <span *ngIf="!tableModel.displayname.isHTML">{{ tableModel.displayname.value }}</span>
+      <span *ngIf="tableModel.displayname.isHTML" [innerHTML]="tableModel.displayname.value"></span>
+    </h1>
+
+    <div class="">
+        <input type="checkbox" [checked]="facetApplied" (change)="applyFacet()"/>
+        <label for="vehicle1" style="font-weight: normal; margin-left: 5px;"> Gene: ABCA4</label>
+    </div>
+
+    <div class="main-body">
+
+      <lib-table-header [tableModel]="tableModel"></lib-table-header>
+      <lib-table [tableModel]="tableModel"></lib-table>
+    </div>
+  </div>
+</div>
