@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ErmrestService } from 'projects/tools/src/lib/ermrest.service';
 import { TableModel } from 'projects/tools/src/lib/table.model';
 import { TableService } from 'projects/tools/src/lib/table.service';
@@ -15,27 +15,31 @@ export class AppComponent implements OnInit {
   pageReady: boolean = false;
   private ERMrest: any;
 
-  constructor(ermrestService: ErmrestService, private cdRef: ChangeDetectorRef, private tableService: TableService) {
+  constructor(ermrestService: ErmrestService, private cdRef: ChangeDetectorRef,
+              private tableService: TableService, private ngZone: NgZone) {
     this.ERMrest = ermrestService.ERMrest;
   }
 
   ngOnInit(): void {
     let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset";
 
-    this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
-      this.tableModel.reference = response.contextualize.compact;
+    this.ngZone.run(() => {
+      this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
 
-      this.tableModel.displayname = this.tableModel.reference.displayname;
+        this.tableModel.reference = response.contextualize.compact;
 
-      this.tableModel.columns = this.tableModel.reference.columns;
+        this.tableModel.displayname = this.tableModel.reference.displayname;
 
-      this.pageReady = true;
-      this.cdRef.detectChanges();
-      this.tableService.fetchData(this.tableModel);
+        this.tableModel.columns = this.tableModel.reference.columns;
 
-    }).catch((error: any) => {
-      this.hasError = true;
-      console.log(error);
+        this.pageReady = true;
+        // this.cdRef.detectChanges();
+        // this.tableService.fetchData(this.tableModel);
+
+      }).catch((error: any) => {
+        this.hasError = true;
+        console.log(error);
+      });
     });
   }
 

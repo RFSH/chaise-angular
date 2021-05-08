@@ -20,7 +20,7 @@ DIST=dist
 install: $(DIST) dont_install_in_root
 	$(info - deploying the package)
 	ng build recordset --base-href=$(CHAISE_BASE_PATH)recordset/
-	ng build record --base-href=$(CHAISE_BASE_PATH)record/
+	# ng build record --base-href=$(CHAISE_BASE_PATH)record/
 	rsync -avz $(DIST)/ $(CHAISEDIR)
 
 dont_install_in_root:
