@@ -322,6 +322,126 @@
           }
         }
       }
+    },
+    "recordedit": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/recordedit",
+      "sourceRoot": "projects/recordedit/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/recordedit",
+            "index": "projects/recordedit/src/index.html",
+            "main": "projects/recordedit/src/main.ts",
+            "polyfills": "projects/recordedit/src/polyfills.ts",
+            "tsConfig": "projects/recordedit/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/recordedit/src/favicon.ico",
+              "projects/recordedit/src/assets"
+            ],
+            "styles": [
+              "projects/recordedit/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/recordedit/src/environments/environment.ts",
+                  "with": "projects/recordedit/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "recordedit:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "recordedit:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "recordedit:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/recordedit/src/test.ts",
+            "polyfills": "projects/recordedit/src/polyfills.ts",
+            "tsConfig": "projects/recordedit/tsconfig.spec.json",
+            "karmaConfig": "projects/recordedit/karma.conf.js",
+            "assets": [
+              "projects/recordedit/src/favicon.ico",
+              "projects/recordedit/src/assets"
+            ],
+            "styles": [
+              "projects/recordedit/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/recordedit/tsconfig.app.json",
+              "projects/recordedit/tsconfig.spec.json",
+              "projects/recordedit/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/recordedit/e2e/protractor.conf.js",
+            "devServerTarget": "recordedit:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "recordedit:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "recordset"

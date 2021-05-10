@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
         this.tableModel.columns = this.tableModel.reference.columns;
 
         this.pageReady = true;
-        // this.cdRef.detectChanges();
-        // this.tableService.fetchData(this.tableModel);
+        this.cdRef.detectChanges();
+        this.tableService.fetchData(this.tableModel);
 
       }).catch((error: any) => {
         this.hasError = true;

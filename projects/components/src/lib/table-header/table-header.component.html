@@ -1,17 +1,25 @@
-<div class="" style="padding-bottom: 10px;">
-  <span>Displaying </span>
-  <span *ngIf="tableModel.tableReady && tableModel.currentCount == 0">0 matching results</span>
-  <span>{{tableModel.currentCount > 0 ? tableModel.currentCount : tableModel.currentPageSize }}</span>
-  <!-- <span ng-if="currentCount > 0" uib-dropdown on-toggle="::pageSizeDropdownToggle(open)">
-    <button class="page-size-dropdown chaise-btn chaise-btn-secondary dropdown-toggle" type="button" uib-dropdown-toggle ng-disabled="!vm.hasLoaded || !vm.initialized || vm.pushMoreRowsPending">
-      <span>{{currentCount > 0 ? currentCount : currentPageSize }}</span>
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-left">
-      <li ng-repeat="limit in pageLimits">
-        <a class="page-size-limit-{{limit}}" href ng-click="setPageLimit(limit)">{{ limit }}<span class="glyphicon pull-right" ng-class="vm.pageLimit === limit ? 'glyphicon-ok' : 'glyphicon-invisible'"></span></a>
-      </li>
-    </ul>
-  </span> -->
-  <span> of {{tableModel.totalCount}} records</span>
+<div class="" style="display: flex;justify-content: space-between;">
+  <div>
+    <span>Displaying </span>
+    <span *ngIf="tableModel.tableReady && tableModel.currentCount == 0">0 matching results</span>
+    <span>{{tableModel.currentCount > 0 ? tableModel.currentCount : tableModel.currentPageSize }}</span>
+    <!-- <span ng-if="currentCount > 0" uib-dropdown on-toggle="::pageSizeDropdownToggle(open)">
+      <button class="page-size-dropdown chaise-btn chaise-btn-secondary dropdown-toggle" type="button" uib-dropdown-toggle ng-disabled="!vm.hasLoaded || !vm.initialized || vm.pushMoreRowsPending">
+        <span>{{currentCount > 0 ? currentCount : currentPageSize }}</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-left">
+        <li ng-repeat="limit in pageLimits">
+          <a class="page-size-limit-{{limit}}" href ng-click="setPageLimit(limit)">{{ limit }}<span class="glyphicon pull-right" ng-class="vm.pageLimit === limit ? 'glyphicon-ok' : 'glyphicon-invisible'"></span></a>
+        </li>
+      </ul>
+    </span> -->
+    <span> of {{tableModel.totalCount}} records</span>
+  </div>
+  <div>
+    <a style="margin-bottom: 5px;" class="chaise-btn chaise-btn-primary" href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
+      <span class="chaise-btn-icon glyphicon glyphicon-plus"></span>
+      <span>Create</span>
+    </a>
+  </div>
 </div>
