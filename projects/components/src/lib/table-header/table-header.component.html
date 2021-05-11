@@ -16,8 +16,9 @@
     </span> -->
     <span> of {{tableModel.totalCount}} records</span>
   </div>
-  <div>
-    <a style="margin-bottom: 5px;" class="chaise-btn chaise-btn-primary" href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
+  <div style="margin-bottom: 5px;">
+    <a class="chaise-btn chaise-btn-primary" placement="top" [tooltip]="'Create new ' + tableModel.displayname.value"
+       href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
       <span class="chaise-btn-icon glyphicon glyphicon-plus"></span>
       <span>Create</span>
     </a>

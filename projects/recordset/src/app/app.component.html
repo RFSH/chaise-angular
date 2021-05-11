@@ -1,7 +1,7 @@
 <div class="container container-fluid">
   <div *ngIf="tableModel.hasError || hasError">has error</div>
   <div *ngIf="!pageReady">Loading...</div>
-  <div *ngIf="pageReady">
+  <div [hidden]="!pageReady">
     <h1>
       <span *ngIf="!tableModel.displayname.isHTML">{{ tableModel.displayname.value }}</span>
       <span *ngIf="tableModel.displayname.isHTML" [innerHTML]="tableModel.displayname.value"></span>

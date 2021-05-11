@@ -4,6 +4,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ComponentsModule } from 'projects/components/src/lib/components.module';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { ComponentsModule } from 'projects/components/src/lib/components.module'
   imports: [
     BrowserModule,
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
+    TooltipModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

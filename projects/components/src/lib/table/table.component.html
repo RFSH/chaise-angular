@@ -1,13 +1,16 @@
-<div *ngIf="!tableModel.tableReady">Loading table...</div>
-<div class="outer-table recordset-table s_isa t_dataset">
+
+<div class="outer-table recordset-table s_isa t_dataset" style="position: relative;">
+  <div *ngIf="!tableModel.tableReady" style="position: absolute;background: white;top: 65px;left: calc(50% - 30px);z-index: 2;padding: 20px;border: 1px solid #ccc;border-radius: 2px;">
+    Loading table...
+  </div>
   <table class="table chaise-table table-striped table-hover">
     <thead class="table-heading">
       <tr>
         <th class="actions-header view-header">
-          <span class="chaise-icon-for-tooltip">View </span>
+          <span class="chaise-icon-for-tooltip" position="top" tooltip="Click on the icon to view the detailed page associated with each record">View </span>
         </th>
         <th *ngFor="let col of tableModel.columns" class="clickable" nowrap="">
-          <span class="table-column-displayname chaise-icon-for-tooltip">
+          <span class="table-column-displayname"  [ngClass]="{'chaise-icon-for-tooltip': col.comment}" placement="top" [adaptivePosition]="false" [tooltip]="col.comment">
             <span *ngIf="!col.displayname.isHTML">{{ col.displayname.value }}</span>
             <span *ngIf="col.displayname.isHTML" [innerHTML]="col.displayname.value"></span>
           </span>
@@ -28,6 +31,7 @@
         <td class="block action-btns">
           <div class="chaise-btn-group">
             <a if="viewLink" type="button" class="view-action-button chaise-btn chaise-btn-tertiary chaise-btn-link icon-btn"
+                placement="bottom" tooltip="View details"
                 href="https://dev.isrd.isi.edu/~ashafaei/chaise2/record">
               <span class="chaise-btn-icon chaise-icon chaise-view-details"></span>
             </a>
