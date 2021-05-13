@@ -72,4 +72,12 @@ export class ErmrestService {
 
     return ermrest;
   }
+
+  runPromiseInAngularZone (p: any, succesFn: Function, errorFn: Function) {
+    p.then((response: any) => {
+      this.zone.run(() => succesFn(response));
+    }).catch((error: any) => {
+      this.zone.run(() => errorFn(error));
+    })
+  }
 }
