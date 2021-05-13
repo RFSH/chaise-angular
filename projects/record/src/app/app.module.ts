@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ComponentsModule } from 'projects/components/src/lib/components.module';
 import { ToolsModule } from 'projects/tools/src/public-api';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ToolsModule } from 'projects/tools/src/public-api';
     BrowserModule,
     HttpClientModule,
     ComponentsModule,
-    ToolsModule
+    ToolsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

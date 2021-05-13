@@ -1,13 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ErmrestService } from 'projects/tools/src/lib/ermrest.service';
 import { TableModel } from 'projects/tools/src/lib/table.model';
 import { TableService } from 'projects/tools/src/lib/table.service';
-import { from } from 'rxjs';
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-recordset',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [NgbTooltipConfig]
 })
 export class AppComponent implements OnInit {
   tableModel: TableModel = new TableModel();
@@ -16,13 +18,15 @@ export class AppComponent implements OnInit {
   pageReady: boolean = false;
   private ERMrest: any;
 
-  constructor(ermrestService: ErmrestService, private tableService: TableService, private zone: NgZone, private cdRef : ChangeDetectorRef) {
+  constructor(ermrestService: ErmrestService, private tableService: TableService,
+              private zone: NgZone, ngbTooltipConfig: NgbTooltipConfig) {
+    ngbTooltipConfig.container = "body";
+
     this.ERMrest = ermrestService.ERMrest;
   }
 
   ngOnInit(): void {
     let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset";
-
 
     this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
       this.zone.run(() => {
@@ -37,10 +41,6 @@ export class AppComponent implements OnInit {
         this.hasError = true;
       })
     });
-  }
-
-  detectChange() {
-    this.cdRef.detectChanges();
   }
 
   applyFacet() {

@@ -2,11 +2,13 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ErmrestService } from 'projects/tools/src/lib/ermrest.service';
 import { TableModel } from 'projects/tools/src/lib/table.model';
 import { TableService } from 'projects/tools/src/lib/table.service';
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-record',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [NgbTooltipConfig]
 })
 export class AppComponent implements OnInit {
   private ERMrest: any;
@@ -17,8 +19,10 @@ export class AppComponent implements OnInit {
   columnModels: any = [];
   relatedTableModels: TableModel[] = [];
 
+  constructor(ermrestService: ErmrestService, private cdRef: ChangeDetectorRef,
+              private tableService: TableService, ngbTooltipConfig: NgbTooltipConfig) {
+    ngbTooltipConfig.container = "body";
 
-  constructor(ermrestService: ErmrestService, private cdRef: ChangeDetectorRef, private tableService: TableService) {
     this.ERMrest = ermrestService.ERMrest;
   }
 

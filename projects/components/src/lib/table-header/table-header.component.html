@@ -2,18 +2,20 @@
   <div>
     <span>Displaying </span>
     <span *ngIf="tableModel.currentCount == 0">0</span>
-    <div *ngIf="tableModel.currentCount > 0" class="btn-group" dropdown>
-      <button [disabled]="!tableModel.tableReady" id="button-basic" dropdownToggle type="button" class="chaise-btn chaise-btn-secondary dropdown-toggle" aria-controls="dropdown-basic">
+    <div *ngIf="tableModel.currentCount > 0" class="btn-group" ngbDropdown style="display: inline-block !important;">
+      <button [disabled]="!tableModel.tableReady" id="button-basic" ngbDropdownToggle type="button" class="chaise-btn chaise-btn-secondary">
         <span>{{tableModel.currentCount > 0 ? tableModel.currentCount : tableModel.pageLimit }}</span>
-        <span class="caret"></span>
       </button>
-      <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li role="menuitem" *ngFor="let item of pageLimits"><a class="dropdown-item" (click)="setPageLimit(item)">{{item}}</a></li>
-      </ul>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem (click)="setPageLimit(item)" *ngFor="let item of pageLimits">
+          <span>{{item}}</span>
+          <span class="glyphicon pull-right" [ngClass]="tableModel.pageLimit === item ? 'glyphicon-ok' : 'glyphicon-invisible'"></span>
+        </button>
+      </div>
     </div>
     <span> of {{tableModel.totalCount}} records</span>
   </div>
-  <div style="margin-bottom: 5px;" placement="left" [tooltip]="'Create new ' + tableModel.displayname.value">
+  <div style="margin-bottom: 5px;" placement="left" [ngbTooltip]="'Create new ' + tableModel.displayname.value">
     <a class="chaise-btn chaise-btn-primary" href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
       <span class="chaise-btn-icon glyphicon glyphicon-plus"></span>
       <span>Create</span>

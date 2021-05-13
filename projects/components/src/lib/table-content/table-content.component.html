@@ -6,10 +6,10 @@
     <thead class="table-heading">
       <tr>
         <th class="actions-header view-header">
-          <span class="chaise-icon-for-tooltip" position="top" tooltip="Click on the icon to view the detailed page associated with each record">View </span>
+          <span class="chaise-icon-for-tooltip" position="top" ngbTooltip="Click on the icon to view the detailed page associated with each record">View </span>
         </th>
         <th *ngFor="let col of tableModel.columns" class="clickable" nowrap="">
-          <span class="table-column-displayname"  [ngClass]="{'chaise-icon-for-tooltip': col.comment}" placement="bottom" [adaptivePosition]="false" [tooltip]="col.comment">
+          <span class="table-column-displayname"  [ngClass]="{'chaise-icon-for-tooltip': col.comment}" placement="top" [ngbTooltip]="col.comment">
             <span *ngIf="!col.displayname.isHTML">{{ col.displayname.value }}</span>
             <span *ngIf="col.displayname.isHTML" [innerHTML]="col.displayname.value"></span>
           </span>
@@ -30,7 +30,7 @@
         <td class="block action-btns">
           <div class="chaise-btn-group">
             <a if="viewLink" type="button" class="view-action-button chaise-btn chaise-btn-tertiary chaise-btn-link icon-btn"
-                placement="bottom" tooltip="View details"
+                placement="bottom" ngbTooltip="View details"
                 href="https://dev.isrd.isi.edu/~ashafaei/chaise2/record">
               <span class="chaise-btn-icon chaise-icon chaise-view-details"></span>
             </a>
