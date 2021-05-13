@@ -23,7 +23,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset/RID=TTG";
+    // let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset/RID=TTG";
+    let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset/RID=1-3X0M";
+
 
     this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
       this.reference = response.contextualize.detailed;

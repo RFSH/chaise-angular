@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { WindowRefService, ICustomWindow } from './window-ref.service';
@@ -10,7 +10,7 @@ import * as Q from 'q';
 export class ErmrestService {
   private window : ICustomWindow;
 
-  constructor ( windowRef: WindowRefService, private http: HttpClient) {
+  constructor ( windowRef: WindowRefService, private http: HttpClient, private zone: NgZone) {
     this.window = windowRef.nativeWindow;
   }
 
@@ -69,7 +69,6 @@ export class ErmrestService {
 
     // configure appLink
     ermrest.appLinkFn(this.appTagToURL);
-
 
     return ermrest;
   }

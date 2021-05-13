@@ -1,4 +1,4 @@
-<div class="container container-fluid">
+<div class="" style="padding: 0 20px;">
   <div *ngIf="hasError">has error</div>
   <div *ngIf="!pageReady">Loading...</div>
   <div *ngIf="pageReady">
@@ -15,16 +15,16 @@
     <div class="main-body">
       <div>
         <table class="table table-fixed-layout" id="tblRecord">
-          <tr *ngFor="let col of columnModels; index as colIndex" class="row record-row">
+          <tr *ngFor="let col of columnModels; index as colIndex" class="row record-row" [hidden]="tuple.values[colIndex] == null || tuple.values[colIndex] == ''">
             <td class="entity-key col-xs-4 col-sm-4 col-md-3 col-lg-2">
               <span class="column-displayname">
                 <span *ngIf="col.column.displayname.isHTML" [innerHTML]="col.column.displayname.value"></span>
                 <span *ngIf="!col.column.displayname.isHTML">{{ col.column.displayname.value }}</span>
               </span>
             </td>
-            <td class="entity-value col-xs-8 col-sm-8 col-md-9 col-lg-10">
+            <td style="padding: 5px 0;" class="entity-value col-xs-8 col-sm-8 col-md-9 col-lg-10">
               <span>
-                <span *ngIf="tuple.isHTML[colIndex]" class="markdown-container" [innerHTML]="tuple.values[colIndex]"></span>
+                <span *ngIf="tuple.isHTML[colIndex]" class="markdown-container" [innerHTML]="tuple.values[colIndex] | safeHtml"></span>
                 <span *ngIf="!tuple.isHTML[colIndex]">{{tuple.values[colIndex]}}</span>
               </span>
             </td>

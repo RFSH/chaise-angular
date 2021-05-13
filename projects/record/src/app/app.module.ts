@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ComponentsModule } from 'projects/components/src/lib/components.module';
+import { ToolsModule } from 'projects/tools/src/public-api';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { ComponentsModule } from 'projects/components/src/lib/components.module'
   imports: [
     BrowserModule,
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
+    ToolsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

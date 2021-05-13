@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
+
 import { TableComponent } from "./table/table.component";
 import { TableHeaderComponent } from './table-header/table-header.component';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TableContentComponent } from './table-content/table-content.component';
 
 @NgModule({
   declarations: [
     TableComponent,
-    TableHeaderComponent
+    TableHeaderComponent,
+    TableContentComponent
   ],
   imports: [
       BrowserModule,
-      TooltipModule.forRoot()
+      BrowserAnimationsModule,
+      TooltipModule.forRoot(),
+      BsDropdownModule.forRoot()
   ],
   exports: [
-    TableComponent,
-    TableHeaderComponent
+    TableComponent
   ]
 })
 export class ComponentsModule { }

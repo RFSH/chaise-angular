@@ -1,24 +1,20 @@
 <div class="" style="display: flex;justify-content: space-between;">
   <div>
     <span>Displaying </span>
-    <span *ngIf="tableModel.tableReady && tableModel.currentCount == 0">0 matching results</span>
-    <span>{{tableModel.currentCount > 0 ? tableModel.currentCount : tableModel.currentPageSize }}</span>
-    <!-- <span ng-if="currentCount > 0" uib-dropdown on-toggle="::pageSizeDropdownToggle(open)">
-      <button class="page-size-dropdown chaise-btn chaise-btn-secondary dropdown-toggle" type="button" uib-dropdown-toggle ng-disabled="!vm.hasLoaded || !vm.initialized || vm.pushMoreRowsPending">
-        <span>{{currentCount > 0 ? currentCount : currentPageSize }}</span>
+    <span *ngIf="tableModel.currentCount == 0">0</span>
+    <div *ngIf="tableModel.currentCount > 0" class="btn-group" dropdown>
+      <button [disabled]="!tableModel.tableReady" id="button-basic" dropdownToggle type="button" class="chaise-btn chaise-btn-secondary dropdown-toggle" aria-controls="dropdown-basic">
+        <span>{{tableModel.currentCount > 0 ? tableModel.currentCount : tableModel.pageLimit }}</span>
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu dropdown-menu-left">
-        <li ng-repeat="limit in pageLimits">
-          <a class="page-size-limit-{{limit}}" href ng-click="setPageLimit(limit)">{{ limit }}<span class="glyphicon pull-right" ng-class="vm.pageLimit === limit ? 'glyphicon-ok' : 'glyphicon-invisible'"></span></a>
-        </li>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem" *ngFor="let item of pageLimits"><a class="dropdown-item" (click)="setPageLimit(item)">{{item}}</a></li>
       </ul>
-    </span> -->
+    </div>
     <span> of {{tableModel.totalCount}} records</span>
   </div>
-  <div style="margin-bottom: 5px;">
-    <a class="chaise-btn chaise-btn-primary" placement="top" [tooltip]="'Create new ' + tableModel.displayname.value"
-       href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
+  <div style="margin-bottom: 5px;" placement="left" [tooltip]="'Create new ' + tableModel.displayname.value">
+    <a class="chaise-btn chaise-btn-primary" href="https://dev.isrd.isi.edu/~ashafaei/chaise2/recordedit">
       <span class="chaise-btn-icon glyphicon glyphicon-plus"></span>
       <span>Create</span>
     </a>

@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { TableModel } from './table.model';
 
 @Injectable({
   providedIn: 'root'
@@ -6,11 +7,11 @@ import { Injectable, NgZone } from '@angular/core';
 export class TableService {
   constructor(private zone: NgZone) {}
 
-  fetchData(tableModel: any) {
+  fetchData(tableModel: TableModel) {
     tableModel.tableReady = false;
     this.zone.run(() => { });
 
-    tableModel.reference.read(25).then((page: any) => {
+    tableModel.reference.read(tableModel.pageLimit).then((page: any) => {
 
       tableModel.currentCount = page.length;
       tableModel.values = [];

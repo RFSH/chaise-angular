@@ -7,7 +7,7 @@ export class TableModel {
   values: any;
   totalCount: number = 0;
   currentCount: number = 0;
-  currentPageSize: number = 0;
+  pageLimit: number = 25;
 
   constructor (_reference?: any) {
     if (_reference) {
@@ -15,5 +15,11 @@ export class TableModel {
       this.displayname = _reference.displayname;
       this.columns = _reference.columns;
     }
+  }
+
+  changePageLimit(pageLimit: number) {
+    let res = new TableModel(this.reference);
+    res.pageLimit = pageLimit;
+    return res;
   }
 }

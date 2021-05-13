@@ -2,25 +2,22 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-
-import { ErmrestService } from './ermrest.service';
 import { WindowRefService } from './window-ref.service';
-import { TableService } from './table.service';
+import { CallbackPipe } from './callback.pipe';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 @NgModule({
   declarations: [
-    ErmrestService,
-    WindowRefService,
-    TableService
+    CallbackPipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule
   ],
   exports: [
-    ErmrestService,
-    WindowRefService,
-    TableService
+    CallbackPipe,
+    SafeHtmlPipe
   ],
   providers: [
     WindowRefService
