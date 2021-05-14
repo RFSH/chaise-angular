@@ -17,16 +17,23 @@ export class AppComponent implements OnInit {
   facetApplied: boolean = false;
   pageReady: boolean = false;
   private ERMrest: any;
+  private currentLocation: any;
 
   constructor(ermrestService: ErmrestService, private tableService: TableService,
               private zone: NgZone, ngbTooltipConfig: NgbTooltipConfig) {
     ngbTooltipConfig.container = "body";
 
     this.ERMrest = ermrestService.ERMrest;
+
+    this.currentLocation = ermrestService.currentLocation;
   }
 
   ngOnInit(): void {
     let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset";
+
+    if (this.currentLocation.ermrestURI != "") {
+      url = this.currentLocation.ermrestURI;
+    }
 
     this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
       this.zone.run(() => {
