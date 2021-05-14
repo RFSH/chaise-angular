@@ -442,6 +442,126 @@
           }
         }
       }
+    },
+    "routetest": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/routetest",
+      "sourceRoot": "projects/routetest/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/routetest",
+            "index": "projects/routetest/src/index.html",
+            "main": "projects/routetest/src/main.ts",
+            "polyfills": "projects/routetest/src/polyfills.ts",
+            "tsConfig": "projects/routetest/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/routetest/src/favicon.ico",
+              "projects/routetest/src/assets"
+            ],
+            "styles": [
+              "projects/routetest/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/routetest/src/environments/environment.ts",
+                  "with": "projects/routetest/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "routetest:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "routetest:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "routetest:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/routetest/src/test.ts",
+            "polyfills": "projects/routetest/src/polyfills.ts",
+            "tsConfig": "projects/routetest/tsconfig.spec.json",
+            "karmaConfig": "projects/routetest/karma.conf.js",
+            "assets": [
+              "projects/routetest/src/favicon.ico",
+              "projects/routetest/src/assets"
+            ],
+            "styles": [
+              "projects/routetest/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/routetest/tsconfig.app.json",
+              "projects/routetest/tsconfig.spec.json",
+              "projects/routetest/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/routetest/e2e/protractor.conf.js",
+            "devServerTarget": "routetest:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "routetest:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "recordset"

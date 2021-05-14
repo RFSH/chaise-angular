@@ -22,6 +22,7 @@ install: $(DIST) dont_install_in_root
 	ng build recordset --base-href=$(CHAISE_BASE_PATH)recordset/
 	ng build record --base-href=$(CHAISE_BASE_PATH)record/
 	ng build recordedit --base-href=$(CHAISE_BASE_PATH)recordedit/
+	ng build routetest --base-href=$(CHAISE_BASE_PATH)routetest/
 	rsync -avz $(DIST)/ $(CHAISEDIR)
 
 dont_install_in_root:

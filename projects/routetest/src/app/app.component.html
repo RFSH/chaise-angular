@@ -1,0 +1,30 @@
+<!-- <div class="" style="padding: 0 20px;">
+  <div *ngIf="tableModel.hasError || hasError">has error</div>
+  <div *ngIf="!pageReady">Loading...</div>
+  <div [hidden]="!pageReady">
+    <h1>
+      <span *ngIf="!tableModel.displayname.isHTML">{{ tableModel.displayname.value }}</span>
+      <span *ngIf="tableModel.displayname.isHTML" [innerHTML]="tableModel.displayname.value"></span>
+    </h1>
+
+    <div class="">
+        <input type="checkbox" [checked]="facetApplied" (change)="applyFacet()"/>
+        <label for="vehicle1" style="font-weight: normal; margin-left: 5px;"> Gene: ABCA4</label>
+    </div>
+
+    <div class="main-body">
+      <lib-table [tableModel]="tableModel"></lib-table>
+    </div>
+  </div>
+</div> -->
+
+<h1>Angular Router App</h1>
+<!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
+<nav>
+  <ul>
+    <li><a routerLink="/wiki" routerLinkActive="active">Wiki</a></li>
+    <li><a routerLink="/help" routerLinkActive="active">help</a></li>
+  </ul>
+</nav>
+<!-- The routed views render in the <router-outlet>-->
+<router-outlet></router-outlet>
