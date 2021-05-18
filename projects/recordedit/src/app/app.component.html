@@ -11,7 +11,7 @@
             <div class="top-right-panel">
               <div class="title-container meta-icons">
                 <div class="title-buttons">
-                  <button class="chaise-btn chaise-btn-primary" type="submit">
+                  <button class="chaise-btn chaise-btn-primary" [disabled]="!form.valid" type="submit">
                     <span class="chaise-btn-icon glyphicon glyphicon-saved"></span>
                     <span>Save</span>
                   </button>
@@ -56,7 +56,7 @@
                   </div> -->
                   <div>
                     <!-- no match -->
-                    <table class="table">
+                    <table class="table" [formGroup]="form">
                       <!-- <tbody>
                         <tr class="shift-form">
                           <td class="entity-key">Record Number</td>
@@ -84,15 +84,20 @@
                           <td class="entity-value" [ngSwitch]="col.inputType">
                             <!-- longtext/textarea input -->
                             <div *ngSwitchCase="'longtext'">
-                              <textarea rows="5" class="content-box chaise-input-control"></textarea>
+                              <textarea rows="5" [attr.name]="col.column.name" [formControlName]="col.column.name" class="content-box chaise-input-control"></textarea>
+                            </div>
+
+                            <!-- foreignkey -->
+                            <div *ngSwitchCase="'foreignkey'" class="chaise-input-control has-feedback">
+                              <input type="text" [attr.name]="col.column.name" [formControlName]="col.column.name">
                             </div>
 
                             <!-- disabled -->
-                            <input *ngSwitchCase="'disabled'" [attr.name]="col.column.name" type="text" class="chaise-input-control" disabled="true">
+                            <input *ngSwitchCase="'disabled'" [attr.name]="col.column.name" [formControlName]="col.column.name" type="text" class="chaise-input-control">
 
                             <!-- shorttext/default text input -->
                             <div *ngSwitchDefault class="chaise-input-control has-feedback">
-                              <input>
+                              <input type="text" [attr.name]="col.column.name" [formControlName]="col.column.name">
                             </div>
                           </td>
                         </tr>
@@ -101,8 +106,12 @@
                   </div>
                 </div>
               </div>
+
+              <p *ngIf="form && form.value">
+                Form Value: {{ form.value | json }}
+              </p>
+
             </div>
-            <footer class="first-footer"></footer>
           </div>
         </div>
 

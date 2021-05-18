@@ -1,5 +1,10 @@
 # Summary
 
+## IDE
+
+Since TypeScript is structured, using and IDE would help a lot. If you're using atom,
+I suggest using `atom-ide-ui` and `atom-typescript` packages.
+
 ## Structure and Deployment
 
 I used [Angular CLI](https://angular.io/cli) for creating the project and deploying it.
@@ -117,21 +122,91 @@ to use proper observables or the ES6 Promise object directly.
 
 ## HTML content (iframe)
 
-<!-- TODO MORE INFO -->
-- https://medium.com/@swarnakishore/angular-safe-pipe-implementation-to-bypass-domsanitizer-stripping-out-content-c1bf0f1cc36b
+The `ng-bind-html` alternative in Angular is `[innerHTML]`:
+
+```html
+<span *ngIf="!tableModel.displayname.isHTML">{{ tableModel.displayname.value }}</span>
+<span *ngIf="tableModel.displayname.isHTML" [innerHTML]="tableModel.displayname.value"></span>
+```
+
+And the same way that `ng-bind-html` doesn't allow "unsafe" tags and we had to create
+a filter, in Angular we need to create a [pipe](https://angular.io/guide/pipes).
+Pipes are simple functions you can use in template expressions to accept an
+input value and return a transformed value. And then in the pipe we can use the
+`bypassSecurityTrustHtml` to trust the HTML content.
+
+source: https://medium.com/@swarnakishore/angular-safe-pipe-implementation-to-bypass-domsanitizer-stripping-out-content-c1bf0f1cc36b
 
 ## Bootstrap
-<!-- TODO MORE INFO -->
-- https://github.com/twbs/release
+
+The following is the release schedule of Bootstrap (based on https://github.com/twbs/release):
+
+| Release | Status          | Initial Release | Active LTS Start | Maintenance LTS Start | End-of-life |
+| :-----: | :-------------: | :-------------: | :--------------: | :-------------------: | :---------: |
+| [2.x][] | **End-of-life** | 2013-07-18      | -                | -                     | 2013-08-19  |
+| [3.x][] | **End-of-life** | 2013-08-19      | 2014-11-01       | 2016-09-05            | 2019-07-24  |
+| [4.x][] | **Active LTS**  | 2018-01-18      | 2019-11-26       | 2021-07-01            | 2022-07-01  |
+| 5.x     | **TBD**         | TBD             | TBD              | TBD                   | TBD         |
+
+[2.x]: https://getbootstrap.com/2.3.2/getting-started.html#download-bootstrap
+[3.x]: https://getbootstrap.com/docs/3.4/getting-started/#download
+[4.x]: https://getbootstrap.com/docs/4.5/getting-started/download/
+
+
+And we're using 3.x. So we should upgrade our Bootstrap version as well. We're also
+using Angular UI which only works with Bootstrap 3.x. So if we update Bootstrap,
+we also have to change Angular UI. In the following I removed Bootstrap 3 (only
+left the glyphicons) and added Bootstrap 4:
+https://dev.rebuildingakidney.org/~ashafaei/chaise4/recordset/#2/Common:Collection
+
+As you can see
+- All the Angular UI elements are broken.
+- Some spacing and borders are borken.
+
+So to upgrade Bootstrap independently from AngularJS, we would have to replace all
+the Angular UI elements which would is doable but requires some time. So we decided
+that it doesn't make sense to do this before changing AngularJS. And since we have
+to replace Angular UI with something that works with the new technology, it makes
+sense to upgrade Bootstrap at the same time as AngularJS.
+
+The Angular alternatives for AngularUI are:
+
+- [ng-bootstrap](https://ng-bootstrap.github.io/#/home):
+  - Newer than the other option
+  - Only supports Bootstrap 4 and 5
+  - Smaller and cleaner
+- [ngx-bootstrap](https://valor-software.com/ngx-bootstrap)
+  - Supports bootstrap 3 and 4.
+
+In this sample project I tried both and I think ng-bootstrap is the clear winner.
 
 ## Routing
-- https://angular.io/guide/router
 
-Angular router works without any hash, so we should technically be able to use it.
+Angular router (https://angular.io/guide/router) works without any hash, so we should technically be able to use it.
 But this requires Apache changes to ignore the path and instead let Angular handle it.
 So most probably we don't want to use Routing and instead continue having separate apps.
 
 ## Form
+
+- There are two different types of forms, Template-based and reactive: https://angular.io/guide/forms-overview
+
+  The following is how you can create a form using `FormBuilder`:
+
+  ```typescript
+  this.fb.group({
+    columnName: ["col value", setOfValidators],
+    anotherColumn: [{value: "another col value", disabled: true}, anotherSetOfValidators],
+  });
+  ```
+  Where `fb` is the injected `FormBuilder` API.
+
+- We should use reactive forms as they allow modification of data in the code: https://angular.io/guide/reactive-forms
+
+- We might want to use dynamic form to make the recordedit more modular:  https://angular.io/guide/dynamic-form
+
+- How to add validation: https://angular.io/guide/form-validation
+
+
 
 ## ng-show alternative
 
@@ -152,5 +227,4 @@ https://stackoverflow.com/questions/35578083/what-is-the-equivalent-of-ngshow-an
 
 ## AngularJS to Angular
 
-
-## Conclusion
+<!-- TODO -->

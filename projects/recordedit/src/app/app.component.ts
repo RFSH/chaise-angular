@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ErmrestService } from 'projects/tools/src/lib/ermrest.service';
 import { RecordEditColumnModel } from 'projects/tools/src/lib/re-column.model';
@@ -15,31 +16,39 @@ export class AppComponent implements OnInit {
   pageReady: boolean = false;
   hasError: boolean = false;
   columnModels: RecordEditColumnModel[] = [];
+  form!: FormGroup;
 
-  constructor(ermrestService: ErmrestService, private cdRef: ChangeDetectorRef,
-              ngbTooltipConfig: NgbTooltipConfig) {
+  constructor(private ermrestService: ErmrestService, private cdRef: ChangeDetectorRef,
+              ngbTooltipConfig: NgbTooltipConfig, private fb: FormBuilder) {
     ngbTooltipConfig.container = "body";
 
-    this.ERMrest = ermrestService.ERMrest;
   }
 
   ngOnInit(): void {
     let url = "https://dev.isrd.isi.edu/ermrest/catalog/1/entity/isa:dataset";
 
-    this.ERMrest.resolve(url, { cid: "migration" }).then((response: any) => {
-      this.reference = response.contextualize.entryCreate;
+    this.ermrestService.runPromiseInAngularZone(
+      this.ermrestService.ERMrest.resolve(url, { cid: "migration" }),
+      (response: any) => {
+        this.reference = response.contextualize.entryCreate;
 
-      this.columnModels = this.reference.columns.map((col: any) => {
-        return new RecordEditColumnModel(col);
-      });
+        let formData : any = {};
 
-      this.pageReady = true;
+        this.columnModels = this.reference.columns.map((col: any) => {
+          let cm = new RecordEditColumnModel(col);
+          formData[cm.column.name] = cm.formControl;
+          return cm;
+        });
 
-      this.cdRef.detectChanges();
-    }).catch((error: any) => {
-      this.hasError = true;
-      console.log(error);
-    })
+        this.form = this.fb.group(formData);
+
+        this.pageReady = true;
+      },
+      (error: any) => {
+        this.hasError = true;
+        console.log(error);
+      }
+    );
   }
 
 }
