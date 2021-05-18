@@ -1,5 +1,22 @@
 # Summary
 
+## Table of contents
+  * [IDE](#ide)
+  * [Structure and Deployment](#structure-and-deployment)
+  * [Angular and TypeScript](#angular-and-typescript)
+  * [Promise vs. Observable](#promise-vs-observable)
+  * [Using ERMrestJS](#using-ermrestjs)
+    + [http module](#http-module)
+    + [q module](#q-module)
+  * [Change detection](#change-detection)
+  * [Communication between components](#communication-between-components)
+  * [HTML content (iframe)](#html-content--iframe-)
+  * [Bootstrap](#bootstrap)
+  * [Routing](#routing)
+  * [Form](#form)
+  * [ng-show alternative](#ng-show-alternative)
+  * [AngularJS to Angular](#angularjs-to-angular)
+
 ## IDE
 
 Since TypeScript is structured, using and IDE would help a lot. If you're using atom,
