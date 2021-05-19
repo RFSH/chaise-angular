@@ -52,6 +52,10 @@ ng generate component table --project=components
 ng generate service table --project=tools
 ```
 
+> By default Angular CLI will add e2e and unit test to each generated  component/app/etc.
+>Since we don't want to make any changes to our test suit, we should use `--skip-tests` when we want to use this in Chaise. There might be some other parameters that
+we might want to pass.
+
 And then to build the applications I created a Makefile that does the following
 to build the projects and then I'm just copying the build folders to the appropriate
 location on the server:
@@ -123,19 +127,29 @@ to use proper observables or the ES6 Promise object directly.
 
 ## Change detection
 
-<!-- TODO MORE INFO -->
+- Instead of a digest cycle, Angular has a "detection" cycle. And instead of checking
+all the objects and watchers, Angular is using [zone](https://angular.io/guide/zone)
+to detect the changes automatically.
 
-- https://blog.angular-university.io/how-does-angular-2-change-detection-really-work/
-- https://medium.com/technofunnel/angular-change-detection-strategy-onpush-and-default-strategy-edd8d41ba9ef
-- https://angular.io/guide/zone
-- https://angular-2-training-book.rangle.io/change-detection
+- There are two strategies of change detections, default and onPush:
+
+  - https://blog.angular-university.io/how-does-angular-2-change-detection-really-work/
+  - https://medium.com/technofunnel/angular-change-detection-strategy-onpush-and-default-strategy-edd8d41ba9ef
+  - https://angular-2-training-book.rangle.io/change-detection
+
+
+In my small example I used the default method, but it seems line onPush is more
+favorable because of better performance. It just requires more work and understanding
+of how Angular works.
 
 ## Communication between components
 
-<!-- TODO MORE INFO -->
+There are multiple ways that components (siblings, child/parent) can talk to each other. One way that is similar to AngularJS is through services and that's how
+I implemented in my sample project. There is also concept of `@input` and `@output`
+for each component:
 
-- https://lukeliutingchun.medium.com/angular-four-ways-for-communication-between-components-b743b9653f8
-- https://indepth.dev/posts/1381/immutability-importance-in-angular-applications
+  - https://lukeliutingchun.medium.com/angular-four-ways-for-communication-between-components-b743b9653f8
+  - https://indepth.dev/posts/1381/immutability-importance-in-angular-applications
 
 ## HTML content (iframe)
 
@@ -244,4 +258,24 @@ https://stackoverflow.com/questions/35578083/what-is-the-equivalent-of-ngshow-an
 
 ## AngularJS to Angular
 
-<!-- TODO -->
+There are a bunch of documentations on how we can do the migration:
+
+- https://angular.io/guide/upgrade
+- https://www.digitalocean.com/community/tutorials/how-to-upgrade-from-angularjs-to-angular-with-ngupgrade
+- https://www.devbridge.com/articles/migrating-angularjs-angular8-tutorial/
+
+They all suggest doing extra steps before the actual migration. This includes,
+- Honoring rule of 1 (Define 1 component per file, recommended to be less than 400 lines of code.)
+- Converting Directives and other non-component modules to component.
+- Introducing webpack to the project.
+
+This would allow us to have Angular and AngularJS together in an app. And then we can
+choose to rewrite the components as time goes by. But I feel like this might be a wasted
+effort, especially Introducing webpack. If we want to start from scratch, we can just rely
+on Angular CLI without worrying about webpack. So this looks like a wasted effort to me.
+
+Instead, we could migrate app by app. This would add to the downtime, but I think overall
+would result in a cleaner code. I experimented with this [in here](https://github.com/RFSH/chaise/tree/angular)
+and this looked doable. I didn't
+dig into it completely, but the only issue with this approach would be how we want to manage
+"common" modules.
